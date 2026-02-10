@@ -60,7 +60,7 @@ export default function CardsPage() {
     const currentCard = cards[activeCardIndex];
 
     return (
-        <main className="flex-1 space-y-10 p-2 md:p-6 animate-in fade-in duration-700 bg-gray-50/30">
+        <main className="flex-1 space-y-10 p-2 md:p-6 animate-in fade-in duration-700 bg-background">
             <FinancialPageHeader
                 title="Card SERVICES"
                 description="Ultimate control over your physical and virtual assets."
@@ -74,7 +74,7 @@ export default function CardsPage() {
 
             <div className="grid gap-10 lg:grid-cols-2">
                 <div className="space-y-8">
-                    <div className="grid grid-cols-2 p-1.5 bg-gray-100 rounded-2xl border-2 border-gold/10">
+                    <div className="grid grid-cols-2 p-1.5 bg-muted rounded-2xl border-2 border-gold/10">
                         {cards.map((card, idx) => (
                             <button
                                 key={card.id}
@@ -82,11 +82,11 @@ export default function CardsPage() {
                                 className={cn(
                                     "py-4 rounded-xl transition-all font-black uppercase text-xs tracking-widest flex items-center justify-center gap-2",
                                     activeCardIndex === idx
-                                        ? "bg-black text-white shadow-2xl scale-[1.02]"
-                                        : "text-gray-500 hover:text-black hover:bg-white/50"
+                                        ? "bg-gold text-black shadow-2xl scale-[1.02]"
+                                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                                 )}
                             >
-                                <Layers className={cn("h-4 w-4", activeCardIndex === idx ? "text-gold" : "text-gray-400")} />
+                                <Layers className={cn("h-4 w-4", activeCardIndex === idx ? "text-black" : "text-muted-foreground")} />
                                 {card.type} CARD
                             </button>
                         ))}
@@ -111,15 +111,15 @@ export default function CardsPage() {
                             </Button>
                         </div>
                     ) : (
-                        <div className="bg-white rounded-2xl p-6 border-2 shadow-md flex items-center justify-between group border-gold/10">
+                        <div className="bg-card rounded-2xl p-6 border-2 shadow-md flex items-center justify-between group border-gold/10">
                             <div className="space-y-1">
-                                <p className="text-[10px] font-black uppercase text-gray-400 tracking-[0.2em] flex items-center gap-2">
+                                <p className="text-[10px] font-black uppercase text-muted-foreground tracking-[0.2em] flex items-center gap-2">
                                     <TrendingUp className="h-3 w-3 text-gold" /> Monthly Utilization
                                 </p>
-                                <p className="text-2xl font-black text-black">Rs. 45,200</p>
+                                <p className="text-2xl font-black text-foreground">Rs. 45,200</p>
                             </div>
                             <div className="flex flex-col items-end gap-2">
-                                <div className="h-2 w-32 bg-gray-100 rounded-full overflow-hidden border">
+                                <div className="h-2 w-32 bg-muted rounded-full overflow-hidden border border-border">
                                     <div className="h-full bg-gold rounded-full" style={{ width: '35%' }} />
                                 </div>
                                 <Button variant="ghost" className="h-8 px-0 text-[10px] font-black uppercase text-gold hover:bg-transparent">
@@ -136,10 +136,10 @@ export default function CardsPage() {
                     />
 
                     <div className="grid grid-cols-2 gap-4">
-                        <Button className="bg-black text-white font-black uppercase h-14 rounded-2xl border-2 border-black hover:bg-white hover:text-black transition-all">
+                        <Button className="bg-gold text-black font-black uppercase h-14 rounded-2xl border-2 border-gold hover:bg-gold/90 transition-all">
                             <Lock className="mr-2 h-4 w-4" /> Block Card
                         </Button>
-                        <Button variant="outline" className="font-black uppercase h-14 rounded-2xl border-2 border-gold/20 text-gold">
+                        <Button variant="outline" className="font-black uppercase h-14 rounded-2xl border-2 border-gold/20 text-gold hover:bg-gold/10">
                             <Settings className="mr-2 h-4 w-4" /> Manage PIN
                         </Button>
                     </div>

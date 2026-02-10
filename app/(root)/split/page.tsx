@@ -38,7 +38,7 @@ export default function SplitBillPage() {
     };
 
     return (
-        <main className="flex-1 space-y-10 p-2 md:p-6 animate-in fade-in duration-700 bg-gray-50/30">
+        <main className="flex-1 space-y-10 p-2 md:p-6 animate-in fade-in duration-700 bg-background">
             <FinancialPageHeader
                 title="Split Bill"
                 description="Effortless expense sharing with real-time settlement tracking."

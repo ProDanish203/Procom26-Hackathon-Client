@@ -39,7 +39,7 @@ export default function TransactionsPage() {
     });
 
     return (
-        <main className="flex-1 space-y-8 p-2 md:p-6 animate-in fade-in duration-700 bg-gray-50/30">
+        <main className="flex-1 space-y-8 p-2 md:p-6 animate-in fade-in duration-700 bg-background">
             <FinancialPageHeader
                 title="TRANSACTION HISTORY"
                 description="Monitor your financial footprint with gold-standard precision."
@@ -80,7 +80,7 @@ export default function TransactionsPage() {
                 categories={categories}
             />
 
-            <Card className="bg-white border-2 shadow-xl rounded-3xl overflow-hidden border-gold/10">
+            <Card className="bg-card border-2 shadow-xl rounded-3xl overflow-hidden border-gold/10">
                 <CardContent className="p-0">
                     <TransactionsTable
                         transactions={filteredTransactions}

@@ -91,10 +91,10 @@ export default function EMIConversionPage() {
   });
 
   return (
-    <div className="w-full space-y-4 md:space-y-6">
+    <div className="w-full space-y-4 md:space-y-6 p-2 md:p-6 bg-background">
       {/* Header */}
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl md:text-3xl font-bold tracking-tight" style={{ color: GOLD }}>
+        <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-gold">
           EMI Conversion Center
         </h1>
         <p className="text-sm md:text-base text-muted-foreground">
@@ -103,10 +103,10 @@ export default function EMIConversionPage() {
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex gap-2 border-b overflow-x-auto">
+      <div className="flex gap-2 border-b border-gold/20 overflow-x-auto">
         <Button
           variant="ghost"
-          className={cn('relative rounded-b-none whitespace-nowrap', activeTab === 'convert' && 'bg-accent')}
+          className={cn('relative rounded-b-none whitespace-nowrap', activeTab === 'convert' && 'bg-gold/10')}
           style={activeTab === 'convert' ? { borderBottom: `2px solid ${GOLD}` } : {}}
           onClick={() => setActiveTab('convert')}
         >
@@ -115,7 +115,7 @@ export default function EMIConversionPage() {
         </Button>
         <Button
           variant="ghost"
-          className={cn('relative rounded-b-none whitespace-nowrap', activeTab === 'dashboard' && 'bg-accent')}
+          className={cn('relative rounded-b-none whitespace-nowrap', activeTab === 'dashboard' && 'bg-gold/10')}
           style={activeTab === 'dashboard' ? { borderBottom: `2px solid ${GOLD}` } : {}}
           onClick={() => setActiveTab('dashboard')}
         >
@@ -130,15 +130,15 @@ export default function EMIConversionPage() {
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-4 md:space-y-6">
             {/* Eligible Transactions */}
-            <Card style={{ borderColor: `${GOLD}33` }}>
+            <Card className="bg-card border-2" style={{ borderColor: `${GOLD}33` }}>
               <CardHeader>
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div>
-                    <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
+                    <CardTitle className="flex items-center gap-2 text-lg md:text-xl text-foreground">
                       <CreditCard className="h-5 w-5" style={{ color: GOLD }} />
                       Eligible Transactions
                     </CardTitle>
-                    <CardDescription className="text-sm">Select a transaction to convert into EMI</CardDescription>
+                    <CardDescription className="text-sm text-muted-foreground">Select a transaction to convert into EMI</CardDescription>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <Select value={filterAmount} onValueChange={setFilterAmount}>
@@ -168,7 +168,8 @@ export default function EMIConversionPage() {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="rounded-md border overflow-x-auto">
+                {/* Desktop Table View */}
+                <div className="hidden md:block rounded-md border overflow-x-auto">
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -224,6 +225,70 @@ export default function EMIConversionPage() {
                       ))}
                     </TableBody>
                   </Table>
+                </div>
+
+                {/* Mobile/Tablet List View */}
+                <div className="md:hidden space-y-3">
+                  {filteredTransactions.map((transaction) => (
+                    <div
+                      key={transaction.id}
+                      className={cn(
+                        'rounded-lg border-2 p-4 cursor-pointer transition-all',
+                        selectedTransaction === transaction.id ? 'border-gold bg-gold/5' : 'border-border hover:border-gold/50'
+                      )}
+                      onClick={() => {
+                        if (transaction.eligible) {
+                          setSelectedTransaction(transaction.id);
+                          setEmiAmount(transaction.amount);
+                        }
+                      }}
+                    >
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <h4 className="font-bold text-foreground text-lg">{transaction.merchant}</h4>
+                          <div className="flex items-center gap-2 mt-1">
+                            <Badge variant="outline" className="text-xs">{transaction.category}</Badge>
+                            {transaction.eligible ? (
+                              <Badge variant="outline" className="text-xs" style={{ borderColor: GOLD, color: GOLD }}>
+                                <CheckCircle2 className="mr-1 h-3 w-3" />
+                                Eligible
+                              </Badge>
+                            ) : (
+                              <Badge variant="secondary" className="text-xs">
+                                <XCircle className="mr-1 h-3 w-3" />
+                                Not Eligible
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-2 mb-3">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Date</span>
+                          <span className="font-medium text-foreground">{transaction.date}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-sm text-muted-foreground">Amount</span>
+                          <span className="text-xl font-bold text-gold">PKR {transaction.amount.toLocaleString()}</span>
+                        </div>
+                      </div>
+
+                      {transaction.eligible && (
+                        <Button
+                          size="sm"
+                          className="w-full bg-gold text-black hover:bg-gold/90"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedTransaction(transaction.id);
+                            setEmiAmount(transaction.amount);
+                          }}
+                        >
+                          Select for EMI Conversion
+                        </Button>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>

@@ -40,7 +40,7 @@ export function AIInsightsCard({
                         </div>
                         <div className="space-y-1">
                             <p className="font-black text-gold uppercase text-[11px] tracking-widest">{insight.title}</p>
-                            <p className="text-xs text-gray-400 leading-relaxed font-bold">{insight.text}</p>
+                            <p className="text-xs text-muted-foreground leading-relaxed font-bold">{insight.text}</p>
                         </div>
                     </div>
                 ))}

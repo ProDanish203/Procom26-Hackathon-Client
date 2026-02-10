@@ -9,25 +9,25 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 export function FundTransferForm() {
     return (
-        <Card className="border-2 shadow-xl rounded-[32px] overflow-hidden bg-white border-gold/20">
-            <div className="p-8 border-b-2 border-gold/10">
+        <Card className="border-2 shadow-xl rounded-[32px] overflow-hidden bg-card border-gold/20">
+            <div className="p-6 md:p-8 border-b-2 border-gold/10">
                 <div className="flex items-center gap-3 mb-2">
                     <div className="p-2 rounded-xl bg-gold/10">
                         <Send className="h-5 w-5 text-gold" />
                     </div>
-                    <CardTitle className="text-2xl font-black uppercase tracking-tighter text-black">Fund Transfer</CardTitle>
+                    <CardTitle className="text-xl md:text-2xl font-black uppercase tracking-tighter text-foreground">Fund Transfer</CardTitle>
                 </div>
-                <CardDescription className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Send money instantly across any bank in Pakistan.</CardDescription>
+                <CardDescription className="text-muted-foreground font-bold uppercase text-[10px] tracking-widest">Send money instantly across any bank in Pakistan.</CardDescription>
             </div>
-            <CardContent className="p-8 space-y-8">
-                <div className="grid gap-8 md:grid-cols-2">
+            <CardContent className="p-6 md:p-8 space-y-6 md:space-y-8">
+                <div className="grid gap-6 md:gap-8 md:grid-cols-2">
                     <div className="space-y-3">
-                        <Label className="font-black text-[10px] uppercase tracking-[0.2em] text-gray-400">Recipient Bank</Label>
+                        <Label className="font-black text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Recipient Bank</Label>
                         <Select>
-                            <SelectTrigger className="h-14 border-2 rounded-2xl bg-gray-50/50 hover:bg-white transition-all border-gold/10 focus-visible:ring-gold">
+                            <SelectTrigger className="h-14 border-2 rounded-2xl bg-muted hover:bg-muted/80 transition-all border-gold/10 focus-visible:ring-gold">
                                 <SelectValue placeholder="Select Destination Bank" />
                             </SelectTrigger>
-                            <SelectContent className="rounded-2xl border-2 border-gold/20">
+                            <SelectContent className="rounded-2xl border-2 border-gold/20 bg-card">
                                 <SelectItem value="jsbl">JS Bank Limited</SelectItem>
                                 <SelectItem value="hbl">HBL Pakistan</SelectItem>
                                 <SelectItem value="meezan">Meezan Islamic Bank</SelectItem>
@@ -36,32 +36,32 @@ export function FundTransferForm() {
                         </Select>
                     </div>
                     <div className="space-y-3">
-                        <Label className="font-black text-[10px] uppercase tracking-[0.2em] text-gray-400">Account / IBAN</Label>
+                        <Label className="font-black text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Account / IBAN</Label>
                         <div className="relative">
-                            <Landmark className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                            <Input className="h-14 pl-12 border-2 rounded-2xl focus-visible:ring-gold font-mono border-gold/10" placeholder="PK00 XXXX XXXX XXXX XXXX" />
+                            <Landmark className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                            <Input className="h-14 pl-12 border-2 rounded-2xl focus-visible:ring-gold font-mono border-gold/10 bg-muted" placeholder="PK00 XXXX XXXX XXXX XXXX" />
                         </div>
                     </div>
                 </div>
 
                 <div className="space-y-3">
-                    <Label className="font-black text-[10px] uppercase tracking-[0.2em] text-gray-400">Transfer Amount</Label>
+                    <Label className="font-black text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Transfer Amount</Label>
                     <div className="relative group">
                         <div className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
                             <DollarSign className="h-6 w-6 text-gold" />
-                            <span className="text-xl font-black text-black">Rs.</span>
+                            <span className="text-xl font-black text-foreground">Rs.</span>
                         </div>
-                        <Input className="h-20 pl-24 text-4xl font-black border-2 rounded-2xl focus-visible:ring-gold bg-gray-50/30 group-focus-within:bg-white transition-all border-gold/10" placeholder="0.00" />
+                        <Input className="h-20 pl-24 text-3xl md:text-4xl font-black border-2 rounded-2xl focus-visible:ring-gold bg-muted transition-all border-gold/10" placeholder="0.00" />
                     </div>
                 </div>
 
                 <div className="space-y-3">
-                    <Label className="font-black text-[10px] uppercase tracking-[0.2em] text-gray-400">Purpose of Payment</Label>
+                    <Label className="font-black text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Purpose of Payment</Label>
                     <Select>
-                        <SelectTrigger className="h-14 border-2 rounded-2xl bg-gray-50/50 border-gold/10 focus-visible:ring-gold">
+                        <SelectTrigger className="h-14 border-2 rounded-2xl bg-muted border-gold/10 focus-visible:ring-gold">
                             <SelectValue placeholder="Select Transfer Purpose" />
                         </SelectTrigger>
-                        <SelectContent className="rounded-2xl border-2 border-gold/20">
+                        <SelectContent className="rounded-2xl border-2 border-gold/20 bg-card">
                             <SelectItem value="family">Family Support / Personal</SelectItem>
                             <SelectItem value="education">Educational Fees</SelectItem>
                             <SelectItem value="investment">Wealth Management / Investment</SelectItem>
@@ -71,8 +71,8 @@ export function FundTransferForm() {
                 </div>
 
                 <div className="pt-4">
-                    <Button className="w-full h-16 text-xl font-black uppercase tracking-tighter text-white shadow-xl hover:scale-[1.01] transition-all rounded-2xl bg-gold">
-                        Confirm & Process Transfer <ArrowRight className="ml-3 h-6 w-6" />
+                    <Button className="w-full h-16 text-lg md:text-xl font-black uppercase tracking-tighter text-black shadow-xl hover:scale-[1.01] transition-all rounded-2xl bg-gold hover:bg-gold/90">
+                        Confirm & Process Transfer <ArrowRight className="ml-3 h-5 md:h-6 w-5 md:w-6" />
                     </Button>
                 </div>
 

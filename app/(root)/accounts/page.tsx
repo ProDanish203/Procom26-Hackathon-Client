@@ -34,7 +34,7 @@ export default function AccountsPage() {
     const { user } = useAuthStore();
 
     return (
-        <main className="flex-1 space-y-6 p-2 md:p-6 animate-in fade-in duration-700 bg-gray-50/30">
+        <main className="flex-1 space-y-6 p-2 md:p-6 animate-in fade-in duration-700 bg-background">
             <FinancialPageHeader
                 title="YOUR ACCOUNTS"
                 description="Overview of your domestic and international holdings."

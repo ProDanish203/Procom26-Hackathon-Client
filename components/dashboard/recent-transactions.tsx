@@ -42,7 +42,7 @@ const transactions = [
 
 export function RecentTransactions() {
     return (
-        <Card className="bg-white border-2 border-gold/20">
+        <Card className="bg-card border-2 border-gold/20">
             <CardHeader className="border-b border-gold/10">
                 <CardTitle className="text-lg font-bold flex items-center gap-2 text-gold">
                     Recent Transactions
@@ -57,8 +57,8 @@ export function RecentTransactions() {
                                     <tx.icon className="h-5 w-5 text-gold" />
                                 </div>
                                 <div>
-                                    <p className="text-sm font-bold text-gray-800">{tx.merchant}</p>
-                                    <p className="text-[11px] text-gray-500 font-medium">{tx.date}</p>
+                                    <p className="text-sm font-bold text-foreground">{tx.merchant}</p>
+                                    <p className="text-[11px] text-muted-foreground font-medium">{tx.date}</p>
                                 </div>
                             </div>
                             <div className="text-right">

@@ -20,23 +20,23 @@ interface MarketComparisonProps {
 
 export function MarketComparison({ items, onRefresh }: MarketComparisonProps) {
     return (
-        <Card className="border-2 bg-white rounded-[32px] overflow-hidden shadow-sm border-gold/10">
+        <Card className="border-2 bg-card rounded-[32px] overflow-hidden shadow-sm border-gold/10">
             <CardHeader className="border-b border-gold/5">
-                <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 flex items-center gap-2">
+                <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                     <Scale className="h-4 w-4 text-gold" /> Market Comparison
                 </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
-                <div className="divide-y divide-gray-50">
+                <div className="divide-y divide-border">
                     {items.map((comp, i) => (
-                        <div key={i} className={cn("px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-all", comp.type === 'best' && "bg-gold/5")}>
+                        <div key={i} className={cn("px-6 py-4 flex justify-between items-center hover:bg-muted/20 transition-all", comp.type === 'best' && "bg-gold/5")}>
                             <div className="space-y-0.5">
-                                <p className="text-[10px] font-black uppercase text-black">{comp.name}</p>
-                                <p className="text-[9px] font-bold text-gray-400">{comp.fee} Markup</p>
+                                <p className="text-[10px] font-black uppercase text-foreground">{comp.name}</p>
+                                <p className="text-[9px] font-bold text-muted-foreground">{comp.fee} Markup</p>
                             </div>
                             <div className="text-right">
-                                <p className={cn("font-black text-sm", comp.type === 'best' ? "text-gold" : "text-black")}>Rs. {comp.rate}</p>
-                                {comp.type === 'best' && <Badge className="bg-gold text-white text-[7px] font-black h-4 px-2 tracking-widest uppercase">Best Value</Badge>}
+                                <p className={cn("font-black text-sm", comp.type === 'best' ? "text-gold" : "text-foreground")}>Rs. {comp.rate}</p>
+                                {comp.type === 'best' && <Badge className="bg-gold text-black text-[7px] font-black h-4 px-2 tracking-widest uppercase">Best Value</Badge>}
                             </div>
                         </div>
                     ))}

@@ -40,11 +40,11 @@ const trendData = [
 ];
 
 const categoryData = [
-    { cat: "Housing & Utilities", val: 35, color: "#D4AF37" },
-    { cat: "Food & Dining", val: 20, color: "#000000" },
-    { cat: "Transport", val: 15, color: "#666666" },
-    { cat: "Entertainment", val: 12, color: "#999999" },
-    { cat: "Others", val: 18, color: "#cccccc" }
+    { cat: "Housing & Utilities", val: 35, color: "hsl(var(--gold))" },
+    { cat: "Food & Dining", val: 20, color: "hsl(var(--foreground))" },
+    { cat: "Transport", val: 15, color: "hsl(var(--muted-foreground))" },
+    { cat: "Entertainment", val: 12, color: "hsl(var(--muted))" },
+    { cat: "Others", val: 18, color: "hsl(var(--border))" }
 ];
 
 const aiInsights = [
@@ -74,7 +74,7 @@ export default function AnalyzerPage() {
     };
 
     return (
-        <main className="flex-1 space-y-10 p-2 md:p-6 animate-in fade-in duration-700 bg-gray-50/30">
+        <main className="flex-1 space-y-10 p-2 md:p-6 animate-in fade-in duration-700 bg-background">
             <FinancialPageHeader
                 title="Statement Analyzer"
                 description="AI-powered insights into your financial behavior."
@@ -104,30 +104,30 @@ export default function AnalyzerPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <AIInsightsCard insights={aiInsights} />
 
-                        <Card className="border-2 bg-white rounded-[32px] overflow-hidden shadow-sm border-gold/10">
+                        <Card className="border-2 bg-card rounded-[32px] overflow-hidden shadow-sm border-gold/10">
                             <CardHeader className="border-b border-gold/5">
-                                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-gray-400 flex items-center gap-2">
+                                <CardTitle className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
                                     <Target className="h-4 w-4 text-gold" /> Top Expenditure Entities
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="p-0">
-                                <div className="divide-y divide-gray-50">
+                                <div className="divide-y divide-border/50">
                                     {topExpenses.map((exp, i) => (
-                                        <div key={i} className="px-8 py-5 flex items-center justify-between hover:bg-gray-50/50 transition-all">
+                                        <div key={i} className="px-8 py-5 flex items-center justify-between hover:bg-muted/20 transition-all">
                                             <div className="flex items-center gap-4">
-                                                <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center font-black text-xs text-gold border border-gold/10">
+                                                <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center font-black text-xs text-gold border border-gold/10">
                                                     {exp.name[0]}
                                                 </div>
                                                 <div>
-                                                    <p className="font-black text-black uppercase text-sm tracking-tight">{exp.name}</p>
-                                                    <p className="text-[10px] text-gray-400 font-bold uppercase">{exp.cat}</p>
+                                                    <p className="font-black text-foreground uppercase text-sm tracking-tight">{exp.name}</p>
+                                                    <p className="text-[10px] text-muted-foreground font-bold uppercase">{exp.cat}</p>
                                                 </div>
                                             </div>
                                             <div className="text-right">
-                                                <p className="font-black text-black">{exp.val}</p>
+                                                <p className="font-black text-foreground">{exp.val}</p>
                                                 <span className={cn(
                                                     "text-[9px] font-black uppercase",
-                                                    exp.trend.startsWith('+') ? "text-red-500" : exp.trend.startsWith('-') ? "text-green-600" : "text-gray-400"
+                                                    exp.trend.startsWith('+') ? "text-red-500" : exp.trend.startsWith('-') ? "text-green-600" : "text-muted-foreground"
                                                 )}>{exp.trend} vs Month</span>
                                             </div>
                                         </div>

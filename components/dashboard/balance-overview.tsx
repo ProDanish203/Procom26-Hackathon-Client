@@ -27,9 +27,9 @@ export function BalanceOverview() {
     return (
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {balances.map((balance) => (
-                <Card key={balance.title} className="bg-white border-2 hover:shadow-lg transition-all duration-300 border-gold/20">
+                <Card key={balance.title} className="bg-card border-2 hover:shadow-lg transition-all duration-300 border-gold/20">
                     <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                        <CardTitle className="text-sm font-bold text-gray-600 uppercase tracking-wider">
+                        <CardTitle className="text-sm font-bold text-muted-foreground uppercase tracking-wider">
                             {balance.title}
                         </CardTitle>
                         <div className="p-2 rounded-lg bg-gold/10 border border-gold/30">
@@ -37,9 +37,9 @@ export function BalanceOverview() {
                         </div>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl md:text-3xl font-bold text-black">{balance.amount}</div>
+                        <div className="text-2xl md:text-3xl font-bold text-foreground">{balance.amount}</div>
                         {balance.limit && (
-                            <p className="text-xs text-gray-500 mt-1 font-medium italic">
+                            <p className="text-xs text-muted-foreground mt-1 font-medium italic">
                                 Credit Limit: {balance.limit}
                             </p>
                         )}

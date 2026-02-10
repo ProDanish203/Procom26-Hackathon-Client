@@ -45,7 +45,7 @@ export default function CurrencyPage() {
     const toCurrency = 'PKR';
 
     return (
-        <main className="flex-1 space-y-10 p-2 md:p-6 animate-in fade-in duration-700 bg-gray-50/30">
+        <main className="flex-1 space-y-10 p-2 md:p-6 animate-in fade-in duration-700 bg-background">
             <FinancialPageHeader
                 title="Currency Analyzer"
                 description="Live foreign exchange insights and optimized transfer intelligence."

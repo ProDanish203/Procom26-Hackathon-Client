@@ -39,7 +39,7 @@ export default function BillsPage() {
     const [activeTab, setActiveTab] = useState<'active' | 'detected' | 'history'>('active');
 
     return (
-        <main className="flex-1 space-y-10 p-2 md:p-6 animate-in fade-in duration-700 bg-gray-50/30">
+        <main className="flex-1 space-y-10 p-2 md:p-6 animate-in fade-in duration-700 bg-background">
             <FinancialPageHeader
                 title="Recurring Bills"
                 description="Automated tracking and management for your mandates."
@@ -53,7 +53,7 @@ export default function BillsPage() {
 
             <div className="grid gap-10 lg:grid-cols-3">
                 <div className="lg:col-span-2 space-y-8">
-                    <div className="flex p-1.5 bg-gray-100 rounded-2xl border-2 w-fit border-gold/10">
+                    <div className="flex flex-wrap p-1.5 bg-muted rounded-2xl border-2 w-fit border-gold/10">
                         {[
                             { id: 'active', label: 'Active Auto-Pay', icon: Zap },
                             { id: 'detected', label: 'Auto-Detected', icon: Search },
@@ -63,13 +63,13 @@ export default function BillsPage() {
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id as any)}
                                 className={cn(
-                                    "px-6 py-3 rounded-xl transition-all font-black uppercase text-[10px] tracking-widest flex items-center gap-2",
+                                    "px-4 md:px-6 py-3 rounded-xl transition-all font-black uppercase text-[10px] tracking-widest flex items-center gap-2 whitespace-nowrap",
                                     activeTab === tab.id
-                                        ? "bg-black text-white shadow-lg scale-[1.02]"
-                                        : "text-gray-500 hover:text-black hover:bg-white/50"
+                                        ? "bg-gold text-black shadow-lg scale-[1.02]"
+                                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                                 )}
                             >
-                                <tab.icon className={cn("h-3.5 w-3.5", activeTab === tab.id ? "text-gold" : "text-gray-400")} />
+                                <tab.icon className={cn("h-3.5 w-3.5", activeTab === tab.id ? "text-black" : "text-muted-foreground")} />
                                 {tab.label}
                             </button>
                         ))}
@@ -107,16 +107,16 @@ export default function BillsPage() {
 
 function BillHistoryList() {
     return (
-        <Card className="border-2 bg-white rounded-3xl overflow-hidden border-gold/10">
+        <Card className="border-2 bg-card rounded-3xl overflow-hidden border-gold/10">
             <div className="p-10 text-center space-y-4">
-                <div className="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center mx-auto">
-                    <HistoryIcon className="h-8 w-8 text-gray-300" />
+                <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto">
+                    <HistoryIcon className="h-8 w-8 text-muted-foreground" />
                 </div>
                 <div className="space-y-1">
-                    <h3 className="text-lg font-black text-black uppercase">Mandate History</h3>
-                    <p className="text-xs text-gray-500 max-w-xs mx-auto">Full historical logs of your recurring payments and manual settled bills will appear here.</p>
+                    <h3 className="text-lg font-black text-foreground uppercase">Mandate History</h3>
+                    <p className="text-xs text-muted-foreground max-w-xs mx-auto">Full historical logs of your recurring payments and manual settled bills will appear here.</p>
                 </div>
-                <Button variant="outline" className="h-11 px-8 rounded-xl font-black uppercase text-[10px] border-2 border-gold/20 text-gold">
+                <Button variant="outline" className="h-11 px-8 rounded-xl font-black uppercase text-[10px] border-2 border-gold/20 text-gold hover:bg-gold/10">
                     Generate Annual Bill Report
                 </Button>
             </div>

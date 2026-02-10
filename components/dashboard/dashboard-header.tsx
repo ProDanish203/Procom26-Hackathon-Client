@@ -18,17 +18,17 @@ export function DashboardHeader({ userName }: DashboardHeaderProps) {
                     <LayoutDashboard className="h-8 w-8" />
                     DASHBOARD
                 </h1>
-                <p className="text-sm font-medium text-gray-500">
-                    Welcome back, <span className="font-bold text-black">{userName}</span>
+                <p className="text-sm font-medium text-muted-foreground">
+                    Welcome back, <span className="font-bold text-foreground">{userName}</span>
                 </p>
             </div>
-            <div className="flex items-center gap-3 bg-white p-3 rounded-xl border-2 shadow-sm border-gold/20">
+            <div className="flex items-center gap-3 bg-card p-3 rounded-xl border-2 shadow-sm border-gold/20">
                 <div className="p-2 rounded-lg bg-gold/10">
                     <LayoutDashboard className="h-5 w-5 text-gold" />
                 </div>
                 <div>
-                    <p className="text-[10px] text-gray-400 font-bold uppercase leading-none mb-1">Last Login</p>
-                    <p className="text-xs font-bold text-black leading-none">Today, 10:45 AM</p>
+                    <p className="text-[10px] text-muted-foreground font-bold uppercase leading-none mb-1">Last Login</p>
+                    <p className="text-xs font-bold text-foreground leading-none">Today, 10:45 AM</p>
                 </div>
             </div>
         </div>

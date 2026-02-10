@@ -146,7 +146,7 @@ export default function StatementsPage() {
   };
 
   return (
-    <div className="w-full space-y-4 md:space-y-6">
+    <div className="w-full space-y-4 md:space-y-6 p-2 md:p-6 bg-background">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-3">
@@ -154,7 +154,7 @@ export default function StatementsPage() {
             <FileText className="h-5 w-5 md:h-6 md:w-6" style={{ color: GOLD }} />
           </div>
           <div>
-            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold" style={{ color: GOLD }}>
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gold">
               Statements & Reports
             </h1>
             <p className="text-xs md:text-sm text-muted-foreground">
@@ -170,13 +170,13 @@ export default function StatementsPage() {
       </div>
 
       {/* Filters */}
-      <Card style={{ borderColor: `${GOLD}33` }}>
+      <Card className="bg-card border-2" style={{ borderColor: `${GOLD}33` }}>
         <CardHeader>
-          <CardTitle className="text-lg flex items-center gap-2">
+          <CardTitle className="text-lg flex items-center gap-2 text-foreground">
             <Filter className="h-5 w-5" style={{ color: GOLD }} />
             Filters
           </CardTitle>
-          <CardDescription>Filter statements by type and date range</CardDescription>
+          <CardDescription className="text-muted-foreground">Filter statements by type and date range</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -240,7 +240,7 @@ export default function StatementsPage() {
 
       {/* Bulk Actions */}
       {selectedStatements.length > 0 && (
-        <Card style={{ borderColor: `${GOLD}33`, backgroundColor: `${GOLD}0d` }}>
+        <Card className="bg-card border-2" style={{ borderColor: `${GOLD}33`, backgroundColor: `${GOLD}0d` }}>
           <CardContent className="p-4">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-sm font-medium mr-2">Bulk Actions:</span>
@@ -286,9 +286,9 @@ export default function StatementsPage() {
       {/* Statements List */}
       <div className="space-y-3">
         {filteredStatements.length === 0 ? (
-          <Card style={{ borderColor: `${GOLD}33` }}>
+          <Card className="bg-card border-2" style={{ borderColor: `${GOLD}33` }}>
             <CardContent className="p-8 text-center">
-              <FileText className="h-12 w-12 mx-auto mb-3 opacity-50" />
+              <FileText className="h-12 w-12 mx-auto mb-3 opacity-50 text-muted-foreground" />
               <p className="text-muted-foreground">No statements found</p>
               <p className="text-sm text-muted-foreground mt-1">Try adjusting your filters</p>
             </CardContent>
@@ -302,7 +302,7 @@ export default function StatementsPage() {
               <Card
                 key={statement.id}
                 className={cn(
-                  'transition-all hover:shadow-md cursor-pointer',
+                  'transition-all hover:shadow-md cursor-pointer bg-card',
                   isSelected && 'border-2'
                 )}
                 style={
@@ -325,7 +325,7 @@ export default function StatementsPage() {
 
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap mb-1">
-                          <h3 className="font-semibold">{statement.title}</h3>
+                          <h3 className="font-semibold text-foreground">{statement.title}</h3>
                           <Badge
                             variant="outline"
                             className="text-xs"
@@ -398,7 +398,7 @@ export default function StatementsPage() {
 
       {/* Summary */}
       {filteredStatements.length > 0 && (
-        <Card style={{ borderColor: `${GOLD}33` }}>
+        <Card className="bg-card border-2" style={{ borderColor: `${GOLD}33` }}>
           <CardContent className="p-4">
             <div className="flex items-center justify-between text-sm text-muted-foreground">
               <span>Showing {filteredStatements.length} statement{filteredStatements.length !== 1 ? 's' : ''}</span>
@@ -409,9 +409,9 @@ export default function StatementsPage() {
       )}
 
       {/* Help Card */}
-      <Card style={{ borderColor: `${GOLD}33` }}>
+      <Card className="bg-card border-2" style={{ borderColor: `${GOLD}33` }}>
         <CardHeader>
-          <CardTitle className="text-lg">Need Help?</CardTitle>
+          <CardTitle className="text-lg text-foreground">Need Help?</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <p className="text-sm text-muted-foreground">

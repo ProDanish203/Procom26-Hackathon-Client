@@ -40,12 +40,12 @@ export function FinancialPageHeader({
                     </div>
                     {title}
                 </h1>
-                <p className="text-sm font-medium text-gray-500">{description}</p>
+                <p className="text-sm font-medium text-muted-foreground">{description}</p>
             </div>
             {action && (
                 <Button
                     onClick={action.onClick}
-                    className="font-black uppercase text-[10px] tracking-widest bg-gold text-white shadow-xl hover:opacity-90 h-11 px-6 rounded-xl transition-all"
+                    className="font-black uppercase text-[10px] tracking-widest bg-gold text-black shadow-xl hover:bg-gold/90 h-11 px-6 rounded-xl transition-all"
                 >
                     <action.icon className="mr-2 h-4 w-4" /> {action.label}
                 </Button>

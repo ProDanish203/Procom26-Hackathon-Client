@@ -31,20 +31,20 @@ export function AppSidebar() {
   });
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-gold/10 bg-white shadow-none">
+    <Sidebar collapsible="icon" className="border-r border-gold/10 bg-sidebar shadow-none">
       <SidebarHeader className="px-3 py-6 md:py-8">
         <div className="flex items-center gap-3 px-2 group-data-[collapsible=icon]:px-0 transition-all duration-500">
           <div className="flex size-9 md:size-10 items-center justify-center rounded-xl bg-black border border-gold/30 transition-transform hover:rotate-3">
             <span className="text-sm md:text-base font-black text-gold italic">P</span>
           </div>
           <div className="flex flex-col group-data-[collapsible=icon]:hidden animate-in fade-in slide-in-from-left-2 duration-500">
-            <span className="text-[14px] md:text-[15px] font-black uppercase text-black tracking-tight leading-none">Procom Bank</span>
+            <span className="text-[14px] md:text-[15px] font-black uppercase text-sidebar-foreground tracking-tight leading-none">Procom Bank</span>
             <span className="text-[9px] md:text-[10px] font-bold text-gold uppercase tracking-[0.3em] leading-tight mt-1 opacity-80">Prestige 2026</span>
           </div>
         </div>
       </SidebarHeader>
 
-      <SidebarContent className="scrollbar-hide">
+      <SidebarContent className="scrollbar-gold">
         {Object.entries(
           filteredNavItems.reduce((acc, item) => {
             const category = item.category || 'General';
@@ -54,7 +54,7 @@ export function AppSidebar() {
           }, {} as Record<string, typeof filteredNavItems>)
         ).map(([category, items]) => (
           <SidebarGroup key={category} className="py-2 md:py-4">
-            <div className="px-4 py-2 text-[9px] md:text-[10px] font-black uppercase text-gray-400 tracking-[0.3em] group-data-[collapsible=icon]:hidden opacity-60">
+            <div className="px-4 py-2 text-[9px] md:text-[10px] font-black uppercase text-muted-foreground tracking-[0.3em] group-data-[collapsible=icon]:hidden opacity-60">
               {category}
             </div>
             <SidebarGroupContent>
@@ -71,21 +71,13 @@ export function AppSidebar() {
                         className={cn(
                           "w-full rounded-xl transition-all duration-300 h-10 md:h-11 shadow-none border-none",
                           isActive
-                            ? "!bg-[#D4AF37] !text-white"
-                            : "hover:bg-gold/5 hover:text-gold text-gray-500 group"
+                            ? "bg-gold text-black hover:bg-gold hover:text-black"
+                            : "text-white hover:bg-gold/5 hover:text-gold"
                         )}
                       >
                         <Link href={item.url} className="flex items-center gap-3 px-3">
-                          <div className={cn(
-                            "flex items-center justify-center transition-all duration-300",
-                            Icon ? (isActive ? "!text-white" : "text-gray-400 group-hover:text-gold") : ""
-                          )}>
-                            {Icon && <Icon className="size-4 md:size-5" />}
-                          </div>
-                          <span className={cn(
-                            "text-[10px] md:text-[11px] font-bold uppercase tracking-wide transition-opacity",
-                            isActive ? "!text-white" : "text-gray-600 group-hover:text-gold"
-                          )}>
+                          {Icon && <Icon className="size-4 md:size-5" />}
+                          <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-wide">
                             {item.title}
                           </span>
                         </Link>
@@ -98,7 +90,7 @@ export function AppSidebar() {
           </SidebarGroup>
         ))}
         {filteredNavItems.length === 0 && (
-          <div className="p-10 text-center text-[10px] font-bold text-gray-300 uppercase tracking-widest">
+          <div className="p-10 text-center text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
             Identity Unverified
           </div>
         )}

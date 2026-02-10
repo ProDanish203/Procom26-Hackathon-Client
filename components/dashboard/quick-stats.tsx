@@ -13,16 +13,16 @@ export function QuickStats() {
     return (
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {stats.map((stat) => (
-                <Card key={stat.label} className="bg-white border border-gold/10">
+                <Card key={stat.label} className="bg-card border border-gold/10">
                     <CardContent className="p-3 flex items-center gap-3">
                         <div className="p-2 rounded-full bg-gold/5 border border-gold/20">
                             <stat.icon className="h-4 w-4 text-gold" />
                         </div>
                         <div>
-                            <p className="text-[10px] text-gray-500 font-bold uppercase">{stat.label}</p>
+                            <p className="text-[10px] text-muted-foreground font-bold uppercase">{stat.label}</p>
                             <div className="flex items-center gap-2">
-                                <p className="text-lg font-bold text-black">{stat.value}</p>
-                                <span className={`text-[9px] font-bold ${stat.trend === 'up' ? 'text-green-600' : stat.trend === 'down' ? 'text-red-500' : 'text-gray-400'}`}>
+                                <p className="text-lg font-bold text-foreground">{stat.value}</p>
+                                <span className={`text-[9px] font-bold ${stat.trend === 'up' ? 'text-green-600' : stat.trend === 'down' ? 'text-red-500' : 'text-muted-foreground'}`}>
                                     {stat.change}
                                 </span>
                             </div>
