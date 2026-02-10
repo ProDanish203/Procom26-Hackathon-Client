@@ -1,19 +1,37 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Copy, TrendingUp, ShieldCheck } from "lucide-react";
+import { Copy, TrendingUp, ShieldCheck, Eye } from "lucide-react";
 import Link from 'next/link';
 
 interface AccountCardProps {
+    id: string;
     type: string;
     accountNumber: string;
     iban: string;
     balance: string;
     interestRate?: string;
-    status: "Active" | "Inactive";
+    status: "Active" | "Inactive" | "Frozen" | "Closed" | "Blocked";
 }
 
-export function AccountCard({ type, accountNumber, iban, balance, interestRate, status }: AccountCardProps) {
+const getStatusStyle = (status: AccountCardProps['status']) => {
+    switch (status) {
+        case 'Active':
+            return 'bg-green-500 text-white';
+        case 'Inactive':
+            return 'bg-gray-500 text-white';
+        case 'Frozen':
+            return 'bg-blue-500 text-white';
+        case 'Closed':
+            return 'bg-red-500 text-white';
+        case 'Blocked':
+            return 'bg-orange-500 text-white';
+        default:
+            return 'bg-gold text-black';
+    }
+};
+
+export function AccountCard({ id, type, accountNumber, iban, balance, interestRate, status }: AccountCardProps) {
     return (
         <Card className="h-full flex flex-col bg-card border-2 border-gold/20 hover:shadow-xl hover:border-gold/40 transition-all duration-300">
             <div className="h-1.5 w-full bg-gold" />
@@ -22,7 +40,7 @@ export function AccountCard({ type, accountNumber, iban, balance, interestRate, 
                     <CardTitle className="text-xl font-bold text-foreground">{type}</CardTitle>
                     <p className="text-xs text-muted-foreground font-mono mt-1">{accountNumber}</p>
                 </div>
-                <Badge className="font-bold border-none bg-gold text-black">
+                <Badge className={`font-bold border-none ${getStatusStyle(status)}`}>
                     {status}
                 </Badge>
             </CardHeader>
@@ -55,7 +73,10 @@ export function AccountCard({ type, accountNumber, iban, balance, interestRate, 
 
                 <div className="mt-auto pt-4 flex gap-2">
                     <Button asChild className="flex-1 font-bold bg-gold text-black hover:bg-gold/90 shadow-md transition-opacity">
-                        <Link href="/statements">Statements</Link>
+                        <Link href={`/accounts/${id}`}>
+                            <Eye className="mr-2 h-4 w-4" />
+                            View Details
+                        </Link>
                     </Button>
                     <Button asChild variant="outline" className="flex-1 font-bold border-gold text-gold hover:bg-gold/10">
                         <Link href="/transactions">History</Link>
