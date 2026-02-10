@@ -1,0 +1,460 @@
+﻿Procom Hackathon Details
+
+
+1. Account Management
+* Account Dashboard
+   * Account balance (current, savings, credit cards)
+   * Account summary overview
+   * Quick actions (transfer, pay bills, etc.)
+* Account Details
+   * Transaction history
+   * Account statements (view/download PDF)
+   * Account number, IBAN details
+   * Interest rates
+2. Transfers & Payments
+* Fund Transfers
+   * To other bank accounts (IBFT/RAAST in Pakistan)
+   * Within same bank (interbank)
+* Bill Payments
+   * Utility bills (electricity, gas, water)
+   * Mobile/internet bills
+   * Credit card payments
+   * School/university fees
+   * Tax payments
+   * Save billers (frequent payees)
+* Mobile Top-up/Recharge
+* Payment History
+   * Transaction receipts
+   * Download/print payment proof
+3. Cards Management
+* Debit Cards
+   * Card details (masked)
+   * Activate/block card
+   * Set spending limits
+   * PIN change/reset
+   * Card statement
+* Credit Cards
+   * Current balance & available credit
+   * Minimum payment due
+   * Payment history
+   * Rewards/points balance
+
+
+4. ChatBot (to be finalized)
+References: https://github.com/karanchahal/Chatagram?tab=readme-ov-file
+https://github.com/GiteshJ/Text-Intent-Classification
+https://github.com/Lakisor/RAG-chatbot-for-banks-FAQ
+
+We have to focus on the FAQs on the Chatbot , on the other hand we can use the chatbot for quick information like balance , recent transactions like that
+5. Voice Assistance
+References: https://github.com/Nimantha97/bank-voice-agent
+6. Bank Statement Analyzer
+Transaction Extraction
+* Parse all transactions
+* Extract date, amount, description
+* Extract account details
+* Balance reconciliation
+Auto-Categorization
+* Income
+* Food & Dining
+* Utilities
+* Transportation
+* Shopping
+* Healthcare
+* Entertainment
+* Cash Withdrawals
+* Transfers
+Spending Analytics
+* Total income vs expenses
+* Category breakdown (pie chart)
+* Monthly trends (line graph)
+* Top expenses list
+Income Analysis
+* Total income
+* Income sources
+* Salary tracking
+Recurring Transactions
+* Auto-detect recurring bills
+* Subscription identification
+* Monthly recurring cost
+Cash Flow Analysis
+* Balance trends over time
+* Inflow vs outflow
+Anomaly Detection
+* Unusual transactions
+* Duplicate charges
+* Out-of-pattern spending
+AI Insights
+* Spending patterns
+* Savings opportunities
+* Personalized recommendations
+Search & Filter
+* Search by merchant
+* Filter by category
+* Filter by date/amount
+Visual Reports
+* Spending charts
+* Category graphs
+* Balance timeline
+Export
+* Download PDF report
+* Export CSV data
+
+
+7 Recurrent Bills Tracking - Simplified Features
+Core Features:
+1. Auto-Detection from Transactions
+   * Scan transaction history
+   * Identify recurring patterns
+   * Detect same merchant/amount monthly
+2. Recurrent Bills List
+   * Show all detected recurring bills
+   * Display: merchant, amount, frequency, next due date
+   * Mark bills as "confirmed recurring" or "ignore"
+3. Smart Notifications
+   * Remind user X days before due date
+   * Push notification/SMS/email
+   * "Your K-Electric bill is due in 3 days"
+4. One-Click Recurring Payment Setup
+   * From notification: "Set up auto-pay?"
+   * User confirms → auto-pay enabled
+   * Choose payment account
+   * Set payment date (e.g., 2 days before due)
+5. Recurring Payment Dashboard
+   * Active auto-pay list
+   * Next scheduled payments
+   * Pause/cancel auto-pay option
+   * Payment history
+6. Bill Amount Changes
+   * Alert if amount varies significantly
+   * "Your electricity bill is Rs. 5,200 this month (usually Rs. 3,800)"
+   * User can review before auto-payment
+7. Manual Bill Addition
+   * Add bills not auto-detected
+   * Scan bill image to extract details
+   * Set frequency (monthly, quarterly, yearly)
+8. Payment Confirmation
+   * Notify after auto-payment successful
+   * Receipt generation
+   * Failed payment alerts
+
+
+8. Split Payment - Features & Implementation
+Essential Features:
+1. Create Split Payment
+* Upload/scan bill image
+* Manual amount entry
+* Voice: "Split this bill with 3 people"
+2. Split Options
+* Equal split (divide equally among all)
+* Custom split (different amounts per person)
+* Percentage split (e.g., 60-40)
+* Item-level split (advanced: person A pays for items X, Y)
+3. Add Participants
+* Select from contacts
+* Add by phone number
+* Add by name (manual entry)
+* Include yourself or exclude
+4. Split Calculation
+* Auto-calculate per-person amount
+* Show breakdown
+* Include/exclude tips or taxes
+* Round amounts option
+5. Payment Request
+* Send request via WhatsApp
+* Send via SMS
+* Send via in-app notification
+* Email option
+* Generate payment link
+6. Payment Tracking
+* Who has paid
+* Who hasn't paid
+* Outstanding amounts
+* Payment received notifications
+7. Settlement Management
+* Mark as paid manually
+* Auto-detect when payment received
+* Remind pending payers
+* Close/settle expense
+8. Group Expense History
+* Past split payments with each person
+* Total owed/owing per person
+* Monthly group spending
+9. Smart Reconciliation
+* "Ali owes you Rs. 2,000"
+* "You owe Sara Rs. 1,500"
+* Net settlement (optimize payments)
+10. Voice Integration
+* "Split Rs. 5,000 with Ali and Hassan"
+* "How much does Sara owe me?"
+* "Send payment reminder to Ali"
+9. Currency Analyzer - Features & Implementation
+Split Payment - Features & Implementation
+Essential Features:
+1. Real-Time Exchange Rates
+* Live PKR exchange rates for major currencies
+* USD, EUR, GBP, AED, SAR, CAD, AUD
+* Multiple sources (banks, exchange companies, market)
+* Rate refresh frequency (every 15 min / hourly)
+2. Rate Comparison
+* Compare rates across:
+   * Different banks (JS Bank, HBL, MCB, UBL, etc.)
+   * Exchange companies (Dolmen, Zarco, Western Union)
+   * Market rate (interbank)
+* Show best rate for buying/selling
+* Highlight cheapest option
+3. Bulk Transfer Optimization
+* Input: Total amount to send (e.g., $10,000)
+* Calculate: Best timing and method
+* Consider: Rate fluctuations, fees, transfer limits
+* Recommendation: "Send now" vs "Wait X days"
+4. Rate Alerts
+* Set target rate (e.g., "Alert when USD < PKR 278")
+* Push notifications when target hit
+* Price drop/increase alerts
+* Daily rate summary notifications
+5. Historical Trends
+* Rate graphs (7 days, 30 days, 6 months, 1 year)
+* Trend analysis (increasing/decreasing)
+* Average rate over period
+* Volatility indicator
+6. Fee Calculator
+* Transfer fees by method
+* Bank charges
+* Exchange company commissions
+* Hidden costs identification
+* Total cost comparison (rate + fees)
+7. Best Time to Send
+* AI predicts optimal send time
+* Based on historical patterns
+* "Send before weekend for better rates"
+* Seasonal trends
+
+
+8. Transfer Amount Calculator
+* Input: Amount in PKR
+* Output: How much recipient receives in USD/EUR/etc.
+* Or reverse: Need $5,000 → Cost in PKR
+* 9. Smart Recommendations
+* "Send via Exchange Company A to save Rs. 5,000"
+* "Wait 2 days - rate expected to improve"
+* "Split $20,000 into 4 weekly transfers"
+
+
+10. Convert to Installments (EMI) - AI-Powered Features
+________________
+
+
+Essential Features:
+1. Transaction Selection
+* View all eligible transactions (above threshold, e.g., Rs. 10,000)
+* Filter by amount, merchant, category
+* Credit card purchases
+* Large debit card transactions
+* Loan-eligible expenses
+2. EMI Calculator
+* Input: Transaction amount
+* Select: Tenure (3, 6, 9, 12, 18, 24 months)
+* Show: Monthly installment, total interest, total payable
+* Compare: Different tenure options side-by-side
+* Processing fee calculation
+3. Eligibility Check (AI)
+* Analyze user's financial health
+* Credit score consideration
+* Income vs. expenses ratio
+* Existing EMI burden
+* Payment history
+* Real-time approval/rejection
+4. AI-Powered Recommendations
+* Suggest optimal tenure based on:
+   * User's monthly surplus
+   * Debt-to-income ratio
+   * Financial goals
+   * Interest cost optimization
+* "We recommend 6 months - fits your budget with lowest total interest"
+5. Affordability Analysis (AI)
+* Analyze spending patterns
+* Calculate safe EMI amount
+* "Based on your income (Rs. 80,000) and expenses (Rs. 55,000), you can afford Rs. 8,000/month EMI"
+* Warning if EMI exceeds safe threshold
+6. Smart EMI Suggestions (Proactive AI)
+* Detect large purchases automatically
+* "You just spent Rs. 85,000 at XYZ Electronics. Convert to EMI?"
+* Personalized tenure suggestion
+* Pre-calculated installment options
+7. EMI Comparison
+* Compare different banks' rates
+* Compare tenure options
+* Show total interest paid
+* Highlight best option
+8. Pre-Approval
+* Instant EMI limit calculation
+* "You're pre-approved for EMI up to Rs. 2,50,000"
+* Based on: credit history, income, relationship with bank
+9. EMI Dashboard
+* Active EMIs list
+* Total monthly obligation
+* Upcoming payments
+* Remaining balance per EMI
+* Early closure options
+10. Payment Reminders
+* Notify before EMI due date
+* Auto-debit setup
+* Missed payment alerts
+* Late fee warnings
+11. Early Closure Calculator
+* Calculate prepayment amount
+* Foreclosure charges
+* Interest savings
+* "Pay Rs. 45,000 now, save Rs. 3,200 in interest"
+12. EMI Impact Simulator (AI)
+* Show budget impact before approval
+* "Adding this EMI will reduce your monthly surplus to Rs. 5,000"
+* Cash flow forecast with new EMI
+* Debt burden visualization
+13. Smart Consolidation (AI)
+* Multiple EMIs → suggest consolidation
+* "Consolidate 3 EMIs into 1 to reduce monthly payment by Rs. 4,000"
+* Optimize total interest cost
+14. Category-Based EMI Offers
+* Electronics: 0% interest for 6 months
+* Appliances: 12 months low-interest
+* Travel: Flexible tenure
+* Healthcare: Special rates
+
+
+
+
+
+
+
+
+
+
+Frontend Pages Structure for AI Banking Solution
+1. Dashboard / Home Page
+* Account balance overview (current, savings, credit cards)
+* Quick actions buttons (transfer, pay bills, top-up)
+* Recent transactions list (last 5-10)
+* Active EMIs summary
+* Upcoming bill payments
+* Chatbot widget (floating button)
+* Voice assistant activation button
+* Quick stats (monthly spending, income, savings)
+2. Accounts Page
+* List of all accounts (current, savings, credit cards)
+* Account details for each (account number, IBAN, balance)
+* Interest rates display
+* View statements button
+* Transaction history link
+3. Transaction History Page
+* Filterable transaction list (date range, category, amount)
+* Search functionality
+* Transaction details modal
+* Download receipt option
+* Export options (PDF/CSV)
+4. Transfer & Payments Hub
+* Three main tabs: Fund Transfer, Bill Payment, Mobile Top-up
+* Fund Transfer tab: IBFT/RAAST form, interbank transfer form, beneficiary list
+* Bill Payment tab: Utility categories, saved billers, pay new bill form
+* Mobile Top-up tab: Network selection, amount input, recent recharges
+* Payment history section
+5. Cards Management Page
+* Card list view (debit/credit cards)
+* Debit Card section: Card visual, activate/block toggle, spending limits, PIN management
+* Credit Card section: Balance display, minimum payment, payment button, rewards/points
+* Card statements download
+6. Bank Statement Analyzer Page
+* Upload statement area (drag-drop/browse)
+* Analysis Dashboard (after upload):
+   * Income vs Expenses summary cards
+   * Category breakdown pie chart
+   * Monthly trends line graph
+   * Top expenses list
+   * Cash flow visualization
+* Insights section: AI-generated insights, savings opportunities, spending patterns
+* Search & filter tools
+* Export report button
+7. Recurring Bills Tracking Page
+* Auto-detected bills list: Merchant name, amount, frequency, next due date, confirm/ignore buttons
+* Active auto-pay section: List of bills on auto-pay, pause/cancel options
+* Upcoming payments calendar: Visual calendar with marked due dates
+* Add manual bill button
+* Bill amount change alerts
+* Payment history tab
+8. Split Payment Page
+* Create split section: Upload bill, manual entry, participant selection
+* Split options: Equal/Custom/Percentage/Item-level radio buttons
+* Participants list: Add/remove participants, contact selection
+* Split calculation display: Per-person breakdown, tip/tax toggles
+* Send requests: WhatsApp/SMS/Email buttons, payment link generator
+* Tracking section: Payment status for each person, outstanding amounts
+* History tab: Past split payments, group expense summary, settlement overview
+9. Currency Analyzer Page
+* Live rates dashboard: Major currencies grid (USD, EUR, GBP, AED, SAR)
+* Rate comparison table: Banks vs Exchange companies vs Market rate
+* Transfer calculator: Amount input, source/destination currency, fee breakdown
+* Historical charts: Trend graphs (7d, 30d, 6m, 1y)
+* Rate alerts section: Set target rate, active alerts list
+* Recommendations panel: AI suggestions for best timing, cost savings
+* Bulk transfer optimizer tool
+10. EMI Conversion Page
+* Eligible transactions list: Filterable by amount/date/merchant
+* EMI Calculator: Amount input, tenure selector, monthly payment display, comparison table
+* Eligibility status card: AI-powered approval/rejection with reasons
+* AI Recommendations: Suggested tenure, affordability analysis, budget impact
+* Convert to EMI button
+* EMI Dashboard tab: Active EMIs, monthly obligations, payment schedule
+11. Active EMIs Dashboard
+* List of all active EMIs (merchant, amount, tenure, remaining)
+* Monthly obligation total
+* Payment reminders section
+* Early closure calculator
+* EMI consolidation suggestions (AI)
+* Payment history per EMI
+12. Chatbot Interface
+* Full-screen chat modal (or dedicated page)
+* Message history
+* Quick action chips (Check balance, Recent transactions, FAQs)
+* FAQ categories browser
+* Text input with send button
+* Voice input option
+13. Voice Assistant Page
+* Microphone activation button (large, central)
+* Voice command suggestions
+* Conversation history/transcript
+* Quick voice commands reference
+* Settings (language, voice preference)
+14. Notifications Page
+* All notifications list
+* Categories: Payments, Bills, EMI, Alerts, Promotions
+* Mark as read functionality
+* Filter/sort options
+* Notification settings link
+15. Profile & Settings Page
+* User profile information
+* Account preferences
+* Notification settings
+* Security settings (PIN, biometric, 2FA)
+* Linked accounts/cards management
+* Language & currency preferences
+* Help & Support
+* Logout
+16. Payment Confirmation Page
+* Transaction success/failure status
+* Transaction details summary
+* Receipt display
+* Download/share receipt buttons
+* Return to dashboard button
+* Related actions (repeat payment, add to favorites)
+17. Statements & Reports Page
+* Account statements list (monthly)
+* Download PDF/CSV options
+* Custom date range selection
+* Statement type filter (account, card, tax)
+* Email statement option
+________________
+
+
+Total: 17 Main Pages/Sections
+These pages cover all the features mentioned in your hackathon document and provide a complete user journey through the AI-powered banking solution.
