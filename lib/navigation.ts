@@ -1,4 +1,4 @@
-import { Package, User, CreditCard, MessageCircle, Volume2, Bell } from 'lucide-react';
+import { Package, User, CreditCard, MessageCircle, Volume2, Bell, Settings, FileText } from 'lucide-react';
 import { UserRole } from './enums';
 
 export interface NavItem {
@@ -23,6 +23,12 @@ export const sidebarNavItems: NavItem[] = [
     role: [UserRole.USER, UserRole.ADMIN],
   },
   {
+    title: 'Statements',
+    url: '/statements',
+    icon: FileText,
+    role: [UserRole.USER, UserRole.ADMIN],
+  },
+  {
     title: 'AI Assistant',
     url: '/chatbot',
     icon: MessageCircle,
@@ -38,6 +44,12 @@ export const sidebarNavItems: NavItem[] = [
     title: 'Notifications',
     url: '/notifications',
     icon: Bell,
+    role: [UserRole.USER, UserRole.ADMIN],
+  },
+  {
+    title: 'Settings',
+    url: '/settings',
+    icon: Settings,
     role: [UserRole.USER, UserRole.ADMIN],
   },
   {
