@@ -1,22 +1,21 @@
-import { BankStatementSchema } from '@/schema/transaction.schema';
+import { AddBeneficiarySchema, BeneficiarySchema } from '@/schema/beneficiary.schema';
 import api from './middleware';
 import { AxiosError } from 'axios';
 
-export const getBankStatement = async (accountId: string, startDate: string, endDate: string) => {
+export const addBeneficiary = async (payload: AddBeneficiarySchema) => {
   try {
-    const { data } = await api.get(`/transaction/account/${accountId}/bank-statement`, {
-      params: { startDate, endDate },
+    const { data } = await api.post('/beneficiary', payload, {
       withCredentials: true,
     });
     if (data?.success) {
       return {
         success: true,
-        response: data.data as BankStatementSchema,
+        response: data.data as BeneficiarySchema,
       };
     } else {
       return {
         success: false,
-        response: data?.message || 'Failed to fetch bank statement',
+        response: data?.message || 'Failed to add beneficiary',
       };
     }
   } catch (error: AxiosError | unknown) {
@@ -30,33 +29,25 @@ export const getBankStatement = async (accountId: string, startDate: string, end
   }
 };
 
-export const getAccountTransactions = async (
-  accountId: string,
-  params?: {
-    page?: number;
-    limit?: number;
-    type?: string;
-    status?: string;
-    category?: string;
-    startDate?: string;
-    endDate?: string;
-    search?: string;
-  },
-) => {
+export const getAllBeneficiaries = async (type?: string, isFavorite?: boolean) => {
   try {
-    const { data } = await api.get(`/transaction/account/${accountId}`, {
+    const params: any = {};
+    if (type) params.type = type;
+    if (isFavorite !== undefined) params.isFavorite = isFavorite;
+
+    const { data } = await api.get('/beneficiary', {
       params,
       withCredentials: true,
     });
     if (data?.success) {
       return {
         success: true,
-        response: data.data,
+        response: data.data as { beneficiaries: BeneficiarySchema[] },
       };
     } else {
       return {
         success: false,
-        response: data?.message || 'Failed to fetch transactions',
+        response: data?.message || 'Failed to fetch beneficiaries',
       };
     }
   } catch (error: AxiosError | unknown) {
@@ -70,20 +61,20 @@ export const getAccountTransactions = async (
   }
 };
 
-export const getTransactionById = async (transactionId: string) => {
+export const deleteBeneficiary = async (id: string) => {
   try {
-    const { data } = await api.get(`/transaction/${transactionId}`, {
+    const { data } = await api.delete(`/beneficiary/${id}`, {
       withCredentials: true,
     });
     if (data?.success) {
       return {
         success: true,
-        response: data.data,
+        response: data.message || 'Beneficiary deleted successfully',
       };
     } else {
       return {
         success: false,
-        response: data?.message || 'Failed to fetch transaction',
+        response: data?.message || 'Failed to delete beneficiary',
       };
     }
   } catch (error: AxiosError | unknown) {
@@ -97,25 +88,20 @@ export const getTransactionById = async (transactionId: string) => {
   }
 };
 
-export const createTransfer = async (payload: {
-  fromAccountId: string;
-  toAccountId: string;
-  amount: number;
-  description?: string;
-}) => {
+export const toggleFavorite = async (id: string) => {
   try {
-    const { data } = await api.post('/transaction/transfer', payload, {
+    const { data } = await api.patch(`/beneficiary/${id}/favorite`, {}, {
       withCredentials: true,
     });
     if (data?.success) {
       return {
         success: true,
-        response: data.data,
+        response: data.data as BeneficiarySchema,
       };
     } else {
       return {
         success: false,
-        response: data?.message || 'Failed to create transfer',
+        response: data?.message || 'Failed to toggle favorite',
       };
     }
   } catch (error: AxiosError | unknown) {

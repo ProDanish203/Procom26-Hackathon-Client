@@ -16,12 +16,6 @@ import { MobileTopupForm } from '@/components/payments/mobile-topup-form';
 import { QuickBeneficiaries } from '@/components/payments/quick-beneficiaries';
 import { RecentPaymentActivity } from '@/components/payments/recent-payment-activity';
 
-const beneficiaries = [
-    { name: "Ahmed Khan", bank: "JS Bank - 0082...", initial: "AK" },
-    { name: "Fatima Ali", bank: "HBL - 1102...", initial: "FA" },
-    { name: "Sajid Mehmood", bank: "Meezan - 9928...", initial: "SM" }
-];
-
 const activity = [
     { id: 1, type: "Mobile Top-up", amount: "500", date: "Today, 10:45 AM" },
     { id: 2, type: "Electricity Bill", amount: "12,450", date: "Yesterday" },
@@ -38,7 +32,7 @@ export default function PaymentsPage() {
                 action={{
                     label: "Transaction History",
                     icon: History,
-                    onClick: () => console.log("View history")
+                    onClick: () => window.location.href = '/transactions'
                 }}
             />
 
@@ -46,7 +40,7 @@ export default function PaymentsPage() {
                 <FinancialStatCard label="Monthly Limit" value="Rs. 500,000" icon={CreditCard} color="gold" />
                 <FinancialStatCard label="Utilized" value="Rs. 128,450" icon={TrendingUp} color="red" />
                 <FinancialStatCard label="Remaining" value="Rs. 371,550" icon={Smartphone} color="green" />
-                <FinancialStatCard label="RAAST Transfers" value="12" icon={ArrowUpRight} color="gold" />
+                <FinancialStatCard label="Transfers" value="12" icon={ArrowUpRight} color="gold" />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -73,7 +67,7 @@ export default function PaymentsPage() {
                 </div>
 
                 <div className="space-y-8">
-                    <QuickBeneficiaries beneficiaries={beneficiaries} />
+                    <QuickBeneficiaries />
                     <RecentPaymentActivity activities={activity} />
                 </div>
             </div>
