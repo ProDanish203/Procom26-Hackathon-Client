@@ -1,48 +1,122 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     Globe,
     Bell,
     Zap,
-    TrendingUp,
-    TrendingDown,
-    Search,
-    Sparkles
+    Sparkles,
+    Loader2
 } from 'lucide-react';
 import { FinancialPageHeader } from '@/components/shared/financial/financial-page-header';
 import { AIInsightsCard } from '@/components/shared/financial/ai-insights-card';
 import { LiveRatesGrid } from '@/components/currency/live-rates-grid';
 import { TransferOptimizer } from '@/components/currency/transfer-optimizer';
 import { HistoricalTrend } from '@/components/currency/historical-trend';
-import { MarketComparison } from '@/components/currency/market-comparison';
+import { getCurrentRate, analyzeTransfer, CurrencyAnalysisResponse } from '@/API/currency.api';
+import { toast } from 'sonner';
 
-const currencies = [
-    { code: 'USD', name: 'US Dollar', rate: 278.45, change: '+0.12%', trend: 'up' as const },
-    { code: 'EUR', name: 'Euro', rate: 302.20, change: '-0.05%', trend: 'down' as const },
-    { code: 'GBP', name: 'British Pound', rate: 354.10, change: '+0.45%', trend: 'up' as const },
-    { code: 'AED', name: 'UAE Dirham', rate: 75.82, change: '0.00%', trend: 'neutral' as const },
-    { code: 'SAR', name: 'Saudi Riyal', rate: 74.25, change: '-0.02%', trend: 'down' as const },
-];
-
-const historicalData = [30, 35, 32, 40, 45, 42, 38, 50, 55, 52, 60, 65, 62, 70, 75, 72, 80, 85, 82, 90, 88, 85, 82, 80, 78, 75, 72, 70, 68, 65];
-
-const comparisonItems = [
-    { name: "Our App", rate: "278.45", fee: "0.0%", type: "best" },
-    { name: "JS Bank", rate: "284.10", fee: "1.5%", type: "bank" },
-    { name: "Local Exchange", rate: "286.50", fee: "2.5%", type: "high" },
-    { name: "Intl. Wire", rate: "292.00", fee: "4.0%", type: "high" }
-];
-
-const aiInsights = [
-    { title: "Buy Efficiency", text: "Rate is currently 2.4% below 30-day average. Excellent time for bulk USD purchases.", icon: Zap },
-    { title: "Weekly Outlook", text: "Detected upward pressure. Rates likely to hit 282.00 by Friday due to market demand.", icon: Sparkles }
+const POPULAR_CURRENCIES = [
+    { code: 'USD', name: 'US Dollar' },
+    { code: 'EUR', name: 'Euro' },
+    { code: 'GBP', name: 'British Pound' },
+    { code: 'AED', name: 'UAE Dirham' },
+    { code: 'SAR', name: 'Saudi Riyal' },
 ];
 
 export default function CurrencyPage() {
     const [amount, setAmount] = useState('1000');
-    const fromCurrency = 'USD';
-    const toCurrency = 'PKR';
+    const [fromCurrency, setFromCurrency] = useState('USD');
+    const [toCurrency, setToCurrency] = useState('PKR');
+    const [loading, setLoading] = useState(false);
+    const [analyzing, setAnalyzing] = useState(false);
+    const [currencies, setCurrencies] = useState<any[]>([]);
+    const [analysis, setAnalysis] = useState<CurrencyAnalysisResponse | null>(null);
+    const [historicalData, setHistoricalData] = useState<number[]>([]);
+
+    // Fetch live rates for popular currencies
+    useEffect(() => {
+        const fetchRates = async () => {
+            setLoading(true);
+            const ratesData = await Promise.all(
+                POPULAR_CURRENCIES.map(async (curr) => {
+                    const result = await getCurrentRate(curr.code, 'PKR');
+                    if (result.success && typeof result.response !== 'string') {
+                        return {
+                            code: curr.code,
+                            name: curr.name,
+                            rate: result.response.rate,
+                            change: '+0.00%',
+                            trend: 'neutral' as const,
+                        };
+                    }
+                    return null;
+                })
+            );
+            setCurrencies(ratesData.filter(Boolean));
+            setLoading(false);
+        };
+        fetchRates();
+    }, []);
+
+    // Handle swap currencies
+    const handleSwapCurrencies = () => {
+        const temp = fromCurrency;
+        setFromCurrency(toCurrency);
+        setToCurrency(temp);
+        // Clear analysis when currencies change
+        setAnalysis(null);
+        setHistoricalData([]);
+    };
+
+    // Handle analyze button click
+    const handleAnalyze = async () => {
+        if (!amount || Number(amount) <= 0) {
+            toast.error('Please enter a valid amount');
+            return;
+        }
+        
+        setAnalyzing(true);
+        const result = await analyzeTransfer({
+            amount: Number(amount),
+            fromCurrency,
+            toCurrency,
+        });
+
+        if (result.success && typeof result.response !== 'string') {
+            setAnalysis(result.response);
+            
+            // Convert historical rates to actual rate values for accurate display
+            const rates = result.response.historicalData.rates;
+            const rateValues = Object.values(rates).map((r: any) => r[toCurrency]);
+            setHistoricalData(rateValues);
+            toast.success('Analysis completed successfully!');
+        } else {
+            toast.error(typeof result.response === 'string' ? result.response : 'Failed to analyze transfer');
+        }
+        setAnalyzing(false);
+    };
+
+    const aiInsights = analysis ? [
+        {
+            title: analysis.recommendation.recommendation === 'transfer_now' ? 'Transfer Now' : 'Wait for Better Rate',
+            text: analysis.recommendation.reasoning,
+            icon: analysis.recommendation.recommendation === 'transfer_now' ? Zap : Sparkles,
+        },
+        {
+            title: 'Suggested Timeframe',
+            text: analysis.recommendation.suggestedTimeframe,
+            icon: Sparkles,
+        },
+        {
+            title: 'Potential Savings',
+            text: `You could save ${toCurrency} ${analysis.recommendation.potentialSavings.toLocaleString()} by following our recommendation. Risk level: ${analysis.recommendation.riskLevel}`,
+            icon: Zap,
+        }
+    ] : [];
+
+    const convertedAmount = analysis ? analysis.estimatedAmount.toLocaleString() : '0';
+    const currentRate = analysis?.currentRate || 0;
 
     return (
         <main className="flex-1 space-y-10 p-2 md:p-6 animate-in fade-in duration-700 bg-background">
@@ -53,11 +127,17 @@ export default function CurrencyPage() {
                 action={{
                     label: "Set Rate Alert",
                     icon: Bell,
-                    onClick: () => console.log("Set alert")
+                    onClick: () => toast.success('Coming Soon', { description: 'Rate alerts will be available soon!' })
                 }}
             />
 
-            <LiveRatesGrid currencies={currencies} />
+            {loading ? (
+                <div className="flex items-center justify-center py-12">
+                    <Loader2 className="h-8 w-8 animate-spin text-gold" />
+                </div>
+            ) : (
+                <LiveRatesGrid currencies={currencies} />
+            )}
 
             <div className="grid gap-10 lg:grid-cols-3">
                 <div className="lg:col-span-2 space-y-10">
@@ -66,27 +146,39 @@ export default function CurrencyPage() {
                         onAmountChange={setAmount}
                         fromCurrency={fromCurrency}
                         toCurrency={toCurrency}
-                        convertedAmount={(Number(amount) * 278.45).toLocaleString()}
-                        onTransfer={() => console.log("Transfer money")}
+                        onFromCurrencyChange={(val) => {
+                            setFromCurrency(val);
+                            setAnalysis(null);
+                            setHistoricalData([]);
+                        }}
+                        onToCurrencyChange={(val) => {
+                            setToCurrency(val);
+                            setAnalysis(null);
+                            setHistoricalData([]);
+                        }}
+                        onSwapCurrencies={handleSwapCurrencies}
+                        convertedAmount={convertedAmount}
+                        currentRate={currentRate}
+                        loading={analyzing}
+                        onAnalyze={handleAnalyze}
                     />
 
-                    <HistoricalTrend
-                        title="USD to PKR Trend (30 Days)"
-                        data={historicalData}
-                        baseRate={275}
-                    />
+                    {historicalData.length > 0 && (
+                        <HistoricalTrend
+                            title={`${fromCurrency} to ${toCurrency} Trend (30 Days)`}
+                            data={historicalData}
+                            stats={analysis?.historicalData}
+                        />
+                    )}
                 </div>
 
                 <div className="space-y-10">
-                    <AIInsightsCard
-                        insights={aiInsights}
-                        title="AI Forecast"
-                    />
-
-                    <MarketComparison
-                        items={comparisonItems}
-                        onRefresh={() => console.log("Refresh rates")}
-                    />
+                    {aiInsights.length > 0 && (
+                        <AIInsightsCard
+                            insights={aiInsights}
+                            title="AI Forecast"
+                        />
+                    )}
                 </div>
             </div>
         </main>
