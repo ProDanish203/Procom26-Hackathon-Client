@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Sparkles, Loader2 } from 'lucide-react';
+import { Brain, Loader2 } from 'lucide-react';
 import { GOLD, MIN_ELIGIBLE_AMOUNT } from './constants';
 import type { EmiAffordabilityAnalysisSchema } from '@/schema/ai.schema';
 
@@ -32,7 +32,7 @@ export function AiAffordabilityCard({
     >
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
-          <Sparkles className="h-5 w-5" style={{ color: GOLD }} />
+          <Brain className="h-5 w-5" style={{ color: GOLD }} />
           AI Affordability
         </CardTitle>
         <CardDescription>Check if this EMI fits your finances</CardDescription>
@@ -89,7 +89,7 @@ export function AiAffordabilityCard({
               onClick={onCheckAffordability}
               disabled={principal < MIN_ELIGIBLE_AMOUNT}
             >
-              <Sparkles className="mr-2 h-4 w-4" />
+              <Brain className="mr-2 h-4 w-4" />
               Check affordability
             </Button>
           </>
