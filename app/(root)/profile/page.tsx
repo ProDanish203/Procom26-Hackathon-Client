@@ -66,7 +66,7 @@ export default function ProfilePage() {
       postalCode: userProfile?.postalCode || '',
       phone: userProfile?.phone || '',
       website: userProfile?.website || '',
-      bio: userProfile?.bio || ''
+      bio: userProfile?.bio || '',
     },
   });
 

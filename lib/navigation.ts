@@ -115,13 +115,6 @@ export const sidebarNavItems: NavItem[] = [
     category: 'Support',
   },
   {
-    title: 'Notifications',
-    url: '/notifications',
-    icon: Bell,
-    role: [UserRole.USER, UserRole.ADMIN],
-    category: 'Account',
-  },
-  {
     title: 'Settings',
     url: '/settings',
     icon: Settings,
