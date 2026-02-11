@@ -1,4 +1,4 @@
-import { Package, User, CreditCard, MessageCircle, Volume2, Bell, Settings, FileText, BarChart3, CalendarDays, Users, Globe } from 'lucide-react';
+import { Package, User, CreditCard, MessageCircle, Settings, FileText, CalendarDays, Users, Globe } from 'lucide-react';
 import { UserRole } from './enums';
 
 export interface NavItem {
@@ -71,13 +71,6 @@ export const sidebarNavItems: NavItem[] = [
 
   // ADVANCED FINANCIAL TOOLS
   {
-    title: 'Statement Analyzer',
-    url: '/analyzer',
-    icon: BarChart3,
-    role: [UserRole.USER, UserRole.ADMIN],
-    category: 'AI Tools',
-  },
-  {
     title: 'Recurring Bills',
     url: '/bills',
     icon: CalendarDays,
@@ -105,14 +98,7 @@ export const sidebarNavItems: NavItem[] = [
     url: '/chatbot',
     icon: MessageCircle,
     role: [UserRole.USER, UserRole.ADMIN],
-    category: 'Support',
-  },
-  {
-    title: 'Voice Assistant',
-    url: '/voice-assistant',
-    icon: Volume2,
-    role: [UserRole.USER, UserRole.ADMIN],
-    category: 'Support',
+    category: 'AI Tools',
   },
   {
     title: 'Settings',
@@ -121,4 +107,11 @@ export const sidebarNavItems: NavItem[] = [
     role: [UserRole.USER, UserRole.ADMIN],
     category: 'Account',
   },
+  {
+    title: 'Profile',
+    url: '/profile',
+    icon: User,
+    role: [UserRole.USER, UserRole.ADMIN],
+    category: 'Account',
+  }
 ];
