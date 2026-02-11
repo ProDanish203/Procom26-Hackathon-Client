@@ -1,7 +1,7 @@
 'use client';
 
 import { useAuthStore } from '@/store/auth.store';
-import { ArrowRight, ShieldCheck, Landmark, Sparkles } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Landmark, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -43,7 +43,7 @@ export default function Home() {
           <span className="text-[10px] font-bold uppercase tracking-widest text-foreground">JSBL Secured</span>
         </div>
         <div className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-gold" />
+          <TrendingUp className="h-4 w-4 text-gold" />
           <span className="text-[10px] font-bold uppercase tracking-widest text-foreground">AI Recommendations</span>
         </div>
       </div>

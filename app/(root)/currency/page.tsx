@@ -5,7 +5,7 @@ import {
     Globe,
     Bell,
     Zap,
-    Sparkles,
+    TrendingUp,
     Loader2
 } from 'lucide-react';
 import { FinancialPageHeader } from '@/components/shared/financial/financial-page-header';
@@ -101,12 +101,12 @@ export default function CurrencyPage() {
         {
             title: analysis.recommendation.recommendation === 'transfer_now' ? 'Transfer Now' : 'Wait for Better Rate',
             text: analysis.recommendation.reasoning,
-            icon: analysis.recommendation.recommendation === 'transfer_now' ? Zap : Sparkles,
+            icon: analysis.recommendation.recommendation === 'transfer_now' ? Zap : TrendingUp,
         },
         {
             title: 'Suggested Timeframe',
             text: analysis.recommendation.suggestedTimeframe,
-            icon: Sparkles,
+            icon: TrendingUp,
         },
         {
             title: 'Potential Savings',

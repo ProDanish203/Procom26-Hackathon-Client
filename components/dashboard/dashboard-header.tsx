@@ -1,6 +1,6 @@
 'use client';
 
-import { Sparkles, LayoutDashboard } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 
 interface DashboardHeaderProps {
     userName: string;
@@ -11,7 +11,6 @@ export function DashboardHeader({ userName }: DashboardHeaderProps) {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-gold/20">
             <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-2 uppercase font-bold text-[10px] tracking-wider text-gold">
-                    <Sparkles className="h-4 w-4" />
                     Personalized Banking Experience
                 </div>
                 <h1 className="text-3xl md:text-4xl font-black tracking-tight flex items-center gap-3 text-gold">

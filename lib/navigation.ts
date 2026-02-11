@@ -13,13 +13,6 @@ export interface NavItem {
 export const sidebarNavItems: NavItem[] = [
   // MAIN NAVIGATION
   {
-    title: 'Home',
-    url: '/',
-    icon: Package,
-    role: [UserRole.USER, UserRole.ADMIN],
-    category: 'General',
-  },
-  {
     title: 'Dashboard',
     url: '/dashboard',
     icon: Package,
@@ -48,25 +41,9 @@ export const sidebarNavItems: NavItem[] = [
     category: 'Banking',
   },
   {
-    title: 'Card Services',
-    url: '/cards',
-    icon: CreditCard,
-    role: [UserRole.USER, UserRole.ADMIN],
-    category: 'Banking',
-  },
-  {
     title: 'EMI Conversion',
     url: '/emi-conversion',
     icon: CreditCard,
-    role: [UserRole.USER, UserRole.ADMIN],
-    category: 'Banking',
-  },
-
-  // ADVANCED FINANCIAL TOOLS
-  {
-    title: 'Recurring Bills',
-    url: '/bills',
-    icon: CalendarDays,
     role: [UserRole.USER, UserRole.ADMIN],
     category: 'Banking',
   },

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Receipt, Zap, Building2, Sparkles, Smartphone, DollarSign, Loader2, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Receipt, Zap, Building2, Smartphone, DollarSign, Loader2, ArrowRight, ShieldCheck, Droplet } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,7 +16,7 @@ import { toast } from 'sonner';
 const BILLERS = [
   { name: 'K-Electric', category: 'Electricity', icon: Zap },
   { name: 'SSGC', category: 'Gas', icon: Building2 },
-  { name: 'KWSB', category: 'Water', icon: Sparkles },
+  { name: 'KWSB', category: 'Water', icon: Droplet },
   { name: 'PTCL', category: 'Internet', icon: Smartphone },
   { name: 'Nayatel', category: 'Internet', icon: Smartphone },
   { name: 'StormFiber', category: 'Internet', icon: Smartphone },
@@ -107,7 +107,7 @@ export function BillPaymentForm() {
             {[
               { name: 'Electricity', icon: Zap },
               { name: 'Gas', icon: Building2 },
-              { name: 'Water', icon: Sparkles },
+              { name: 'Water', icon: Droplet },
               { name: 'Internet', icon: Smartphone },
             ].map((cat) => (
               <Button

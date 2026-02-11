@@ -4,7 +4,7 @@ import {
   TrendingUp,
   HelpCircle,
   User,
-  Sparkles,
+  Gift,
   FileText,
 } from 'lucide-react';
 
@@ -51,7 +51,7 @@ export const faqCategories = [
   {
     id: 4,
     title: 'Rewards & Offers',
-    icon: Sparkles,
+    icon: Gift,
     questions: [
       'How to redeem reward points?',
       'What are the current offers?',
