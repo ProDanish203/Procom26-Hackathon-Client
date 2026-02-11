@@ -49,8 +49,8 @@ export default function TransactionsPage() {
   const [selectedAccountId, setSelectedAccountId] = useState<string>(accountIdFromUrl || '');
   const [currentPage, setCurrentPage] = useState(1);
   const [statementDates, setStatementDates] = useState({
-    startDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split('T')[0],
-    endDate: new Date().toISOString().split('T')[0],
+    startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 30 days ago
+    endDate: new Date().toISOString().split('T')[0], // Today
   });
 
   const { data: accountsResponse } = useQuery({

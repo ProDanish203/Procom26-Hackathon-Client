@@ -2,7 +2,8 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getAccountById, updateAccount, closeAccount, getAccountStatement } from '@/API/account.api';
+import { getAccountById, updateAccount, closeAccount } from '@/API/account.api';
+import { getBankStatement } from '@/API/transaction.api';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -39,8 +40,8 @@ export default function AccountDetailsPage() {
   const [isCloseDialogOpen, setIsCloseDialogOpen] = useState(false);
   const [isStatementDialogOpen, setIsStatementDialogOpen] = useState(false);
   const [statementDates, setStatementDates] = useState({
-    startDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split('T')[0],
-    endDate: new Date().toISOString().split('T')[0],
+    startDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 30 days ago
+    endDate: new Date().toISOString().split('T')[0], // Today
   });
   const [formData, setFormData] = useState<UpdateAccountSchema>({
     nickname: '',
@@ -90,7 +91,7 @@ export default function AccountDetailsPage() {
   });
 
   const downloadStatementMutation = useMutation({
-    mutationFn: () => getAccountStatement(accountId, statementDates.startDate, statementDates.endDate),
+    mutationFn: () => getBankStatement(accountId, statementDates.startDate, statementDates.endDate),
     onSuccess: (result) => {
       if (result.success) {
         generatePDF(result.response);
@@ -106,76 +107,106 @@ export default function AccountDetailsPage() {
   });
 
   const generatePDF = (statement: any) => {
-    const { account, transactions, period, summary } = statement;
+    console.log('Statement data:', statement); // Debug log
+    const { account, transactions = [], period, summary, statementId, generatedAt } = statement;
+    
+    console.log('Transactions count:', transactions?.length); // Debug log
+    console.log('Transactions:', transactions); // Debug log
     
     // Create HTML content for the statement
     const htmlContent = `
       <!DOCTYPE html>
       <html>
       <head>
-        <title>Account Statement</title>
+        <title>Account Statement - ${account.accountNumber}</title>
         <style>
           body { font-family: Arial, sans-serif; padding: 40px; }
-          .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #D4AF37; padding-bottom: 20px; }
-          .header h1 { color: #D4AF37; margin: 0; }
-          .info-section { margin: 20px 0; }
+          .header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid #D4AF37; padding-bottom: 20px; }
+          .header h1 { color: #D4AF37; margin: 0; font-size: 32px; }
+          .header p { color: #666; margin: 5px 0; }
+          .info-section { margin: 20px 0; background: #f9f9f9; padding: 20px; border-radius: 8px; }
           .info-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #eee; }
           .label { font-weight: bold; color: #666; }
           .value { color: #333; }
           table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-          th { background-color: #D4AF37; color: white; padding: 12px; text-align: left; }
+          th { background-color: #D4AF37; color: white; padding: 12px; text-align: left; font-weight: bold; }
           td { padding: 10px; border-bottom: 1px solid #ddd; }
-          .summary { background-color: #f9f9f9; padding: 20px; margin-top: 20px; border-radius: 8px; }
+          tr:hover { background-color: #f5f5f5; }
+          .summary { background-color: #f9f9f9; padding: 20px; margin-top: 20px; border-radius: 8px; border: 2px solid #D4AF37; }
+          .summary h3 { color: #D4AF37; margin-top: 0; }
           .summary-row { display: flex; justify-content: space-between; padding: 8px 0; }
-          .total { font-size: 18px; font-weight: bold; color: #D4AF37; }
+          .total { font-size: 18px; font-weight: bold; color: #D4AF37; border-top: 2px solid #D4AF37; padding-top: 10px; margin-top: 10px; }
+          .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 12px; }
         </style>
       </head>
       <body>
         <div class="header">
-          <h1>JSBL Bank</h1>
-          <h2>Account Statement</h2>
+          <h1>JSBL BANK</h1>
+          <p>Bank Statement</p>
+          <p style="font-size: 12px;">Statement ID: ${statementId || 'N/A'}</p>
+          <p style="font-size: 12px;">Generated: ${generatedAt ? new Date(generatedAt).toLocaleString() : new Date().toLocaleString()}</p>
         </div>
         
         <div class="info-section">
           <div class="info-row">
             <span class="label">Account Holder:</span>
-            <span class="value">${account.nickname}</span>
+            <span class="value">${account.nickname || 'N/A'}</span>
           </div>
           <div class="info-row">
             <span class="label">Account Number:</span>
-            <span class="value">${account.accountNumber}</span>
+            <span class="value">${account.accountNumber || 'N/A'}</span>
           </div>
           <div class="info-row">
-            <span class="label">IBAN:</span>
-            <span class="value">${account.iban}</span>
+            <span class="label">Account Type:</span>
+            <span class="value">${account.accountType || 'N/A'}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Currency:</span>
+            <span class="value">${account.currency || 'PKR'}</span>
           </div>
           <div class="info-row">
             <span class="label">Statement Period:</span>
             <span class="value">${new Date(period.startDate).toLocaleDateString()} - ${new Date(period.endDate).toLocaleDateString()}</span>
           </div>
+          <div class="info-row">
+            <span class="label">Current Balance:</span>
+            <span class="value" style="color: #D4AF37; font-weight: bold;">Rs. ${parseFloat(account.balance || 0).toLocaleString()}</span>
+          </div>
         </div>
 
-        <h3>Transaction History</h3>
+        <h3 style="color: #D4AF37;">Transaction History</h3>
         <table>
           <thead>
             <tr>
               <th>Date</th>
               <th>Description</th>
               <th>Type</th>
-              <th>Amount</th>
-              <th>Balance</th>
+              <th>Reference</th>
+              <th style="text-align: right;">Amount</th>
+              <th style="text-align: right;">Balance After</th>
             </tr>
           </thead>
           <tbody>
-            ${transactions.length > 0 ? transactions.map((tx: any) => `
+            ${
+              Array.isArray(transactions) && transactions.length > 0
+                ? transactions
+                    .map(
+                      (tx: any) => `
               <tr>
-                <td>${new Date(tx.createdAt || tx.date).toLocaleDateString()}</td>
-                <td>${tx.description || tx.type || 'Transaction'}</td>
+                <td>${new Date(tx.createdAt || tx.date || Date.now()).toLocaleDateString()}</td>
+                <td>${tx.description || tx.transactionType || 'Transaction'}</td>
                 <td>${tx.transactionType || tx.type || 'N/A'}</td>
-                <td style="color: ${tx.amount < 0 ? 'red' : 'green'}">Rs. ${Math.abs(tx.amount || 0).toLocaleString()}</td>
-                <td>Rs. ${(tx.balance || 0).toLocaleString()}</td>
+                <td style="font-family: monospace; font-size: 11px;">${tx.reference || tx.id || 'N/A'}</td>
+                <td style="text-align: right; color: ${(tx.amount || 0) < 0 ? 'red' : 'green'}; font-weight: bold;">
+                  ${(tx.amount || 0) < 0 ? '-' : '+'}Rs. ${Math.abs(tx.amount || 0).toLocaleString()}
+                </td>
+                <td style="text-align: right; font-weight: bold;">Rs. ${(tx.balanceAfter || tx.balance || 0).toLocaleString()}</td>
               </tr>
-            `).join('') : '<tr><td colspan="5" style="text-align: center;">No transactions found</td></tr>'}
+            `,
+                    )
+                    .join('')
+                : '<tr><td colspan="6" style="text-align: center; padding: 20px; color: #999;">No transactions found for this period</td></tr>'
+            }
           </tbody>
         </table>
 
@@ -183,24 +214,30 @@ export default function AccountDetailsPage() {
           <h3>Summary</h3>
           <div class="summary-row">
             <span class="label">Opening Balance:</span>
-            <span class="value">Rs. ${summary.openingBalance.toLocaleString()}</span>
+            <span class="value">Rs. ${(summary.openingBalance || 0).toLocaleString()}</span>
           </div>
           <div class="summary-row">
             <span class="label">Total Deposits:</span>
-            <span class="value" style="color: green;">Rs. ${summary.totalDeposits.toLocaleString()}</span>
+            <span class="value" style="color: green; font-weight: bold;">+ Rs. ${(summary.totalDeposits || 0).toLocaleString()}</span>
           </div>
           <div class="summary-row">
             <span class="label">Total Withdrawals:</span>
-            <span class="value" style="color: red;">Rs. ${summary.totalWithdrawals.toLocaleString()}</span>
+            <span class="value" style="color: red; font-weight: bold;">- Rs. ${(summary.totalWithdrawals || 0).toLocaleString()}</span>
           </div>
           <div class="summary-row">
             <span class="label">Total Transactions:</span>
-            <span class="value">${summary.transactionCount}</span>
+            <span class="value">${summary.transactionCount || 0}</span>
           </div>
           <div class="summary-row total">
             <span>Closing Balance:</span>
-            <span>Rs. ${summary.closingBalance.toLocaleString()}</span>
+            <span>Rs. ${(summary.closingBalance || 0).toLocaleString()}</span>
           </div>
+        </div>
+
+        <div class="footer">
+          <p>This is a computer-generated statement and does not require a signature.</p>
+          <p>For any queries, please contact JSBL Bank Customer Service.</p>
+          <p>© ${new Date().getFullYear()} JSBL Bank. All rights reserved.</p>
         </div>
       </body>
       </html>
@@ -211,7 +248,7 @@ export default function AccountDetailsPage() {
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `statement_${account.accountNumber}_${period.startDate}_${period.endDate}.html`;
+    link.download = `bank_statement_${account.accountNumber}_${period.startDate}_${period.endDate}.html`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

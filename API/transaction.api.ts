@@ -128,3 +128,35 @@ export const createTransfer = async (payload: {
     return { success: false, response: 'An unknown error occurred' };
   }
 };
+
+export const depositCash = async (payload: {
+  accountId: string;
+  amount: number;
+  description: string;
+  location?: string;
+}) => {
+  try {
+    const { data } = await api.post('/transaction/deposit', payload, {
+      withCredentials: true,
+    });
+    if (data?.success) {
+      return {
+        success: true,
+        response: data.data,
+      };
+    } else {
+      return {
+        success: false,
+        response: data?.message || 'Failed to deposit cash',
+      };
+    }
+  } catch (error: AxiosError | unknown) {
+    if (error instanceof AxiosError) {
+      return {
+        success: false,
+        response: error.response?.data?.message || 'An unknown error occurred',
+      };
+    }
+    return { success: false, response: 'An unknown error occurred' };
+  }
+};

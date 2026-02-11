@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Send, ArrowRight, ShieldCheck, DollarSign, Loader2 } from 'lucide-react';
+import { Send, ArrowRight, ShieldCheck, DollarSign, Loader2, Building2, Users } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ExternalTransferForm } from './external-transfer-form';
 import { Card, CardContent, CardDescription, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,6 +17,35 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
 export function FundTransferForm() {
+  return (
+    <Tabs defaultValue="internal" className="w-full">
+      <TabsList className="grid w-full grid-cols-2 bg-muted p-1.5 rounded-2xl border-2 border-gold/10 mb-6">
+        <TabsTrigger
+          value="internal"
+          className="font-black uppercase text-[10px] tracking-widest rounded-xl data-[state=active]:bg-gold data-[state=active]:text-black flex items-center gap-2"
+        >
+          <Users className="h-4 w-4" />
+          My Accounts
+        </TabsTrigger>
+        <TabsTrigger
+          value="external"
+          className="font-black uppercase text-[10px] tracking-widest rounded-xl data-[state=active]:bg-gold data-[state=active]:text-black flex items-center gap-2"
+        >
+          <Building2 className="h-4 w-4" />
+          Other Banks
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="internal" className="mt-0">
+        <InternalTransferForm />
+      </TabsContent>
+      <TabsContent value="external" className="mt-0">
+        <ExternalTransferForm />
+      </TabsContent>
+    </Tabs>
+  );
+}
+
+function InternalTransferForm() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const [formData, setFormData] = useState({
