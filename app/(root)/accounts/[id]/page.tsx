@@ -107,11 +107,7 @@ export default function AccountDetailsPage() {
   });
 
   const generatePDF = (statement: any) => {
-    console.log('Statement data:', statement); // Debug log
     const { account, transactions = [], period, summary, statementId, generatedAt } = statement;
-    
-    console.log('Transactions count:', transactions?.length); // Debug log
-    console.log('Transactions:', transactions); // Debug log
     
     // Create HTML content for the statement
     const htmlContent = `

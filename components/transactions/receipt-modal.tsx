@@ -1,6 +1,6 @@
 'use client';
 
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { DollarSign, Download, ShieldCheck, Loader2 } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
@@ -26,6 +26,7 @@ export function ReceiptModal({ transactionId, isOpen, onClose }: ReceiptModalPro
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-md bg-card border-4 p-0 overflow-hidden shadow-2xl rounded-[32px] border-gold">
+        <DialogTitle className="sr-only">Transaction receipt</DialogTitle>
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
             <Loader2 className="h-8 w-8 animate-spin text-gold" />

@@ -29,16 +29,16 @@ export default function PaymentsPage() {
     const payments = paymentsResponse?.success ? paymentsResponse.response.payments : [];
     const totalPayments = paymentsResponse?.success ? paymentsResponse.response.pagination.totalCount : 0;
 
-    // Calculate stats from real payment data
+    // Calculate stats from real payment data (totalAmount can be string from API)
     const monthlyLimit = 500000;
-    const utilized = payments.reduce((sum: number, payment: any) => sum + payment.totalAmount, 0);
+    const utilized = payments.reduce((sum: number, payment: any) => sum + Number(payment.totalAmount ?? 0), 0);
     const remaining = monthlyLimit - utilized;
 
     // Format recent activity from real payments
     const activity = payments.slice(0, 3).map((payment: any) => ({
         id: payment.id,
         type: payment.paymentType.replace(/_/g, ' '),
-        amount: payment.totalAmount.toFixed(2),
+        amount: Number(payment.totalAmount ?? 0).toFixed(2),
         date: new Date(payment.createdAt).toLocaleDateString('en-US', {
             month: 'short',
             day: 'numeric',

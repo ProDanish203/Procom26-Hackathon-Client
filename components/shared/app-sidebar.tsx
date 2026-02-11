@@ -38,7 +38,7 @@ export function AppSidebar() {
             <span className="text-sm md:text-base font-black text-gold italic">P</span>
           </div>
           <div className="flex flex-col group-data-[collapsible=icon]:hidden animate-in fade-in slide-in-from-left-2 duration-500">
-            <span className="text-[14px] md:text-[15px] font-black uppercase text-sidebar-foreground tracking-tight leading-none">Procom Bank</span>
+            <span className="text-[14px] md:text-[15px] font-black uppercase text-sidebar-foreground tracking-tight leading-none">Desi Bank</span>
             <span className="text-[9px] md:text-[10px] font-bold text-gold uppercase tracking-[0.3em] leading-tight mt-1 opacity-80">Prestige 2026</span>
           </div>
         </div>
