@@ -61,13 +61,6 @@ export const sidebarNavItems: NavItem[] = [
     role: [UserRole.USER, UserRole.ADMIN],
     category: 'Banking',
   },
-  {
-    title: 'Statements',
-    url: '/statements',
-    icon: FileText,
-    role: [UserRole.USER, UserRole.ADMIN],
-    category: 'Banking',
-  },
 
   // ADVANCED FINANCIAL TOOLS
   {
@@ -75,14 +68,7 @@ export const sidebarNavItems: NavItem[] = [
     url: '/bills',
     icon: CalendarDays,
     role: [UserRole.USER, UserRole.ADMIN],
-    category: 'Management',
-  },
-  {
-    title: 'Split Payments',
-    url: '/split',
-    icon: Users,
-    role: [UserRole.USER, UserRole.ADMIN],
-    category: 'Management',
+    category: 'Banking',
   },
   {
     title: 'Currency Analyzer',
